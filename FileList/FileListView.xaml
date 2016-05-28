@@ -8,6 +8,8 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="10" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="100" />
         </Grid.RowDefinitions>
 
         <TextBox Grid.Row="0"
@@ -40,16 +42,39 @@
                                     Header="Modified" />
                 </GridView>
             </ListView.View>
-            <ListView.InputBindings>
-                <KeyBinding Key="Backspace" Command="{Binding GoLevelUpCommand}" />
-                <KeyBinding Key="Enter" Command="{Binding ListFolderCommand}" />
-            </ListView.InputBindings>
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="MouseDoubleClick">
-                    <i:InvokeCommandAction Command="{Binding LoadFileListCommand}" />
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border Name="Bd" Background="Transparent">
+                                    <GridViewRowPresenter />
+                                    <Border.InputBindings>
+                                        <MouseBinding Command="{Binding DataContext.LoadFileListCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" Gesture="LeftDoubleClick" />
+                                        <KeyBinding Key="Backspace" Command="{Binding DataContext.GoLevelUpCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
+                                        <KeyBinding Key="Enter" Command="{Binding DataContext.ListFolderCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
+                                    </Border.InputBindings>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Bd" Property="Panel.Background" Value="LightGray" />
+                                        <Setter Property="TextElement.Foreground" Value="Black" />
+                                    </Trigger>
+                                    <Trigger Property="Selector.IsSelected" Value="True">
+                                        <Setter TargetName="Bd" Property="Panel.Background" Value="DarkGray" />
+                                        <Setter Property="TextElement.Foreground" Value="White" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
+        <TextBox Grid.Row="4"
+                 AcceptsReturn="True"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 Text="{Binding EventLog}"
+                 TextWrapping="Wrap" />
     </Grid>
 </UserControl>

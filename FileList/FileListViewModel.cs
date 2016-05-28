@@ -51,6 +51,13 @@ namespace FileBrowser.FileList
         public DelegateCommand GoLevelUpCommand { get; set; }
         public DelegateCommand ListFolderCommand { get; set; }
 
+        private string eventLog;
+        public string EventLog
+        {
+            get { return this.eventLog; }
+            set { SetProperty(ref this.eventLog, value); }
+        }
+
         public void Initialize()
         {
             FileList = new ObservableCollection<FileInfo>();
@@ -58,7 +65,6 @@ namespace FileBrowser.FileList
             GoLevelUpCommand = new DelegateCommand(ExecuteGoLevelUp, (o) => SelectedFile != null && SelectedFile.IsParent);
             ListFolderCommand = new DelegateCommand(ExecuteListFolder, (o) => SelectedFile != null && !SelectedFile.IsParent && SelectedFile.IsFolder);
             LoadFileListCommand = new DelegateCommand(ExecuteLoadFileList, (o) => GoLevelUpCommand.CanExecute(null) || ListFolderCommand.CanExecute(null));
-
 
             this.model.Initialize();
             this.model.FileListLoaded += OnFileListLoaded;
@@ -71,6 +77,8 @@ namespace FileBrowser.FileList
 
         private void OnFileListLoaded(object sender, EventArgs e)
         {
+            LogEvent("Request for new file list handled: " + this.model.FilePath);
+
             UpdateData();
         }
 
@@ -86,40 +94,47 @@ namespace FileBrowser.FileList
 
         private void ExecuteLoadFileList(object obj)
         {
-            //if (SelectedFile != null)
-            //{
-                if (SelectedFile.IsParent)
-                {
-                    ExecuteGoLevelUp(null);
-                }
-                else
-                {
-                    ExecuteListFolder(null);
-                }
-            //}
+            if (SelectedFile.IsParent)
+            {
+                ExecuteGoLevelUp(null);
+            }
+            else
+            {
+                ExecuteListFolder(null);
+            }
         }
 
         private void ExecuteGoLevelUp(object obj)
         {
-            //if (SelectedFile != null && SelectedFile.IsParent)
-            //{
-                var path = Path.GetDirectoryName(FilePath);
+            var path = Path.GetDirectoryName(FilePath);
 
-                if (path != null)
-                {
-                    this.model.FilePath = path;
-                    this.model.LoadFileList();
-                }
-            //}
+            if (path != null)
+            {
+                LogEvent("Requesting 'GoLevelUp': " + path);
+
+                this.model.FilePath = path;
+                this.model.LoadFileList();
+
+                LogEvent("Request for 'GoLevelUp' queued: " + path);
+            }
         }
 
         private void ExecuteListFolder(object obj)
         {
-            //if (SelectedFile != null && !SelectedFile.IsParent)
-            //{
-                this.model.FilePath = Path.Combine(FilePath, SelectedFile.Name);
-                this.model.LoadFileList();
-            //}
+            var path = Path.Combine(FilePath, SelectedFile.Name);
+
+            LogEvent("Requesting 'ListFolder': " + path);
+
+            this.model.FilePath = path;
+            this.model.LoadFileList();
+
+            LogEvent("Request for 'ListFolder' queued: " + path);
+        }
+
+
+        private void LogEvent(string message)
+        {
+            EventLog += String.Format("{0}: {1}\n", DateTime.Now.ToString("HH:mm:ss.fff"), message);
         }
 
         #endregion Private members
