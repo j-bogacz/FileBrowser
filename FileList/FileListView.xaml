@@ -1,12 +1,23 @@
 ﻿<UserControl x:Class="FileBrowser.FileList.FileListView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:prism="http://prismlibrary.com/">
-    <DockPanel>
-        <TextBox DockPanel.Dock="Top"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBox Grid.Row="0"
                  IsReadOnly="True"
                  Text="{Binding FilePath}" />
-        <ListView ItemsSource="{Binding FileList}">
+
+        <ListView Grid.Row="2"
+                  VerticalAlignment="Stretch"
+                  ItemsSource="{Binding FileList}"
+                  SelectedItem="{Binding SelectedFile}">
             <ListView.Resources>
                 <DataTemplate x:Key="IconCellTemplate">
                     <Image Source="{Binding Icon}" />
@@ -15,15 +26,30 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="20" CellTemplate="{StaticResource IconCellTemplate}" />
-                    <GridViewColumn Width="150"
+                    <GridViewColumn Width="270"
                                     DisplayMemberBinding="{Binding Name}"
                                     Header="Name" />
-                    <GridViewColumn Width="50"
+                    <GridViewColumn Width="130"
                                     DisplayMemberBinding="{Binding Type}"
                                     Header="Type" />
+                    <GridViewColumn Width="130"
+                                    DisplayMemberBinding="{Binding Created}"
+                                    Header="Created" />
+                    <GridViewColumn Width="130"
+                                    DisplayMemberBinding="{Binding Modified}"
+                                    Header="Modified" />
                 </GridView>
             </ListView.View>
-        </ListView>
+            <ListView.InputBindings>
+                <KeyBinding Key="Backspace" Command="{Binding GoLevelUpCommand}" />
+                <KeyBinding Key="Enter" Command="{Binding ListFolderCommand}" />
+            </ListView.InputBindings>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction Command="{Binding LoadFileListCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
 
-    </DockPanel>
+        </ListView>
+    </Grid>
 </UserControl>

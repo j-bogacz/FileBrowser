@@ -1,4 +1,5 @@
 ﻿using FileBrowser.FileList;
+using FileBrowser.TxtViewer;
 using Microsoft.Practices.ServiceLocation;
 using Prism.Mef;
 using System.ComponentModel.Composition.Hosting;
@@ -16,6 +17,7 @@ namespace FileBrowser
 
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
             AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(FileListModule).Assembly));
+            AggregateCatalog.Catalogs.Add(new AssemblyCatalog(typeof(TxtViewerModule).Assembly));
         }
 
         protected override DependencyObject CreateShell()

@@ -5,25 +5,17 @@
         xmlns:local="clr-namespace:UserInterface"
         xmlns:prism="http://www.codeplex.com/prism"
         Title="File Browser"
-        Width="1000"
+        Width="1100"
         Height="600">
-    <Grid>
+
+    <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="10" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0"
-                BorderBrush="Red"
-                BorderThickness="1">
-            <ContentControl prism:RegionManager.RegionName="FileListRegion" />
-        </Border>
-
-        <Border Grid.Column="1"
-                BorderBrush="Red"
-                BorderThickness="1">
-            <ContentControl prism:RegionManager.RegionName="TxtPreviewRegion" />
-        </Border>
-
+        <ContentControl Grid.Column="0" prism:RegionManager.RegionName="FileListRegion" />
+        <ContentControl Grid.Column="2" prism:RegionManager.RegionName="TxtViewerRegion" />
     </Grid>
 </Window>

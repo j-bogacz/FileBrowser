@@ -50,9 +50,10 @@ namespace FileBrowser.FileList
             // Until not implemented, use random data
             var randomFileList = new[]
             {
-                new FileInfo { Name=RandomString(15), Type=RandomString(10), Icon = RandomIcon() },
-                new FileInfo { Name=RandomString(15), Type=RandomString(10), Icon = RandomIcon() },
-                new FileInfo { Name=RandomString(15), Type=RandomString(10), Icon = RandomIcon() },
+                new FileInfo { Name = "...", IsParent  = true },
+                new FileInfo { Name = RandomString(15), Type = "Folder", Icon = RandomIcon(), Created = DateTime.Now, Modified = DateTime.Now.AddHours(2), IsFolder = true },
+                new FileInfo { Name = RandomString(15), Type = RandomString(10), Icon = RandomIcon(), Created = DateTime.Now, Modified = DateTime.Now.AddHours(2) },
+                new FileInfo { Name = RandomString(15), Type = RandomString(10), Icon = RandomIcon(), Created = DateTime.Now, Modified = DateTime.Now.AddHours(2) },
             };
 
             this.fileList.Clear();
