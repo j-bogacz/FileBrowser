@@ -29,18 +29,18 @@ namespace FileBrowser.FileList
 
         #region Public members
 
-        private string filePath = "CXXX";
+        private string filePath;
         public string FilePath
         {
             get { return this.filePath; }
             set { SetProperty(ref this.filePath, value); }
         }
 
-        public ObservableCollection<string> FileList { get; set; }
+        public ObservableCollection<FileInfo> FileList { get; set; }
 
         public void Initialize()
         {
-            FileList = new ObservableCollection<string>();
+            FileList = new ObservableCollection<FileInfo>();
 
             this.model.Initialize();
             this.model.FileListLoaded += OnFileListLoaded;

@@ -6,6 +6,24 @@
         <TextBox DockPanel.Dock="Top"
                  IsReadOnly="True"
                  Text="{Binding FilePath}" />
-        <ListView ItemsSource="{Binding FileList}" />
+        <ListView ItemsSource="{Binding FileList}">
+            <ListView.Resources>
+                <DataTemplate x:Key="IconCellTemplate">
+                    <Image Source="{Binding Icon}" />
+                </DataTemplate>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="20" CellTemplate="{StaticResource IconCellTemplate}" />
+                    <GridViewColumn Width="150"
+                                    DisplayMemberBinding="{Binding Name}"
+                                    Header="Name" />
+                    <GridViewColumn Width="50"
+                                    DisplayMemberBinding="{Binding Type}"
+                                    Header="Type" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
     </DockPanel>
 </UserControl>

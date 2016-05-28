@@ -71,6 +71,7 @@
       <DependentUpon>FileListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileListViewModel.cs" />
+    <Compile Include="Model\FileInfo.cs" />
     <Compile Include="Model\FileListModel.cs" />
     <Compile Include="Model\IFileListModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -97,12 +98,16 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Page Include="FileListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Model\TestImages\Icon1.bmp" />
+    <Resource Include="Model\TestImages\Icon2.bmp" />
+    <Resource Include="Model\TestImages\Icon3.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

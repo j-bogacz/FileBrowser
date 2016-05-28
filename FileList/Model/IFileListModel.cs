@@ -9,7 +9,7 @@ namespace FileBrowser.FileList
 
         string FilePath { get; set; }
 
-        IEnumerable<string> FileList { get; }
+        IEnumerable<FileInfo> FileList { get; }
 
         void Initialize();
 
