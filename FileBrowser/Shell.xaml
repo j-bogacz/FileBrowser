@@ -1,0 +1,29 @@
+﻿<Window x:Class="UserInterface.Shell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:UserInterface"
+        xmlns:prism="http://www.codeplex.com/prism"
+        Title="File Browser"
+        Width="1000"
+        Height="600">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0"
+                BorderBrush="Red"
+                BorderThickness="1">
+            <ContentControl prism:RegionManager.RegionName="FileListRegion" />
+        </Border>
+
+        <Border Grid.Column="1"
+                BorderBrush="Red"
+                BorderThickness="1">
+            <ContentControl prism:RegionManager.RegionName="TxtPreviewRegion" />
+        </Border>
+
+    </Grid>
+</Window>
