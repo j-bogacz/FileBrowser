@@ -14,6 +14,8 @@ namespace FileBrowser.FileList
         private string filePath;
         private FileInfo selectedFile;
 
+        private bool isIdle = true;
+
         private string eventLog;
 
         IFileListModel model;
@@ -51,6 +53,12 @@ namespace FileBrowser.FileList
         public DelegateCommand GoLevelUpCommand { get; set; }
         public DelegateCommand ListFolderCommand { get; set; }
 
+        public bool IsIdle
+        {
+            get { return this.isIdle; }
+            set { SetProperty(ref this.isIdle, value); }
+        }
+
         public string EventLog
         {
             get { return this.eventLog; }
@@ -86,6 +94,8 @@ namespace FileBrowser.FileList
                 this.model.FilePath = FilePath;
                 this.model.LoadFileList();
 
+                IsIdle = false;
+
                 LogEvent("Request for initial 'LoadFileList' queued: " + FilePath);
             }
             catch (Exception ex)
@@ -101,6 +111,8 @@ namespace FileBrowser.FileList
         private void OnFileListLoaded(object sender, EventArgs e)
         {
             LogEvent("Request for new file list handled: " + this.model.FilePath);
+
+            IsIdle = true;
 
             UpdateData();
         }
@@ -140,6 +152,8 @@ namespace FileBrowser.FileList
                     this.model.FilePath = path;
                     this.model.LoadFileList();
 
+                    IsIdle = false;
+
                     LogEvent("Request for 'GoLevelUp' queued: " + path);
                 }
                 catch (Exception ex)
@@ -161,6 +175,8 @@ namespace FileBrowser.FileList
 
                     this.model.FilePath = path;
                     this.model.LoadFileList();
+
+                    IsIdle = false;
 
                     LogEvent("Request for 'ListFolder' queued: " + path);
                 }

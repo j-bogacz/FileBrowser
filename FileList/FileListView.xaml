@@ -19,6 +19,7 @@
 
         <ListView Grid.Row="2"
                   VerticalAlignment="Stretch"
+                  IsEnabled="{Binding IsIdle}"
                   ItemsSource="{Binding FileList}"
                   SelectedItem="{Binding SelectedFile}">
             <ListView.Resources>
