@@ -64,7 +64,18 @@ namespace FileBrowser.FileList
             LoadFileListCommand = new DelegateCommand(ExecuteLoadFileList, () => GoLevelUpCommand.CanExecute() || ListFolderCommand.CanExecute());
 
             var commandLineArgs = Environment.GetCommandLineArgs();
-            FilePath = (commandLineArgs.Length == 2) ? commandLineArgs[1] : String.Empty;
+
+            if ((commandLineArgs.Length != 2) || !Path.IsPathRooted(commandLineArgs[1]))
+            {
+                LogEvent("Incorrect number of arguments or passed argument doesn't represents file path");
+                return;
+            }
+
+            FilePath = Path.GetPathRoot(commandLineArgs[1]);
+            if (!FilePath.EndsWith(Path.DirectorySeparatorChar.ToString()))
+            {
+                FilePath += Path.DirectorySeparatorChar;
+            }
 
             this.model.FileListLoaded += OnFileListLoaded;
 
