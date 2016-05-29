@@ -68,17 +68,16 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DelegateCommand.cs" />
     <Compile Include="FileListModule.cs" />
     <Compile Include="FileListView.xaml.cs">
       <DependentUpon>FileListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="FileListViewModel.cs" />
-    <Compile Include="Model\FileInfo.cs" />
+    <Compile Include="FileInfo.cs" />
     <Compile Include="Model\FileListModel.cs" />
-    <Compile Include="Model\FileListProvider\FileListProvider.cs" />
+    <Compile Include="FileListProvider\FileListProvider.cs" />
     <Compile Include="Model\IFileListModel.cs" />
-    <Compile Include="Model\FileListProvider\IFileListProvider.cs" />
+    <Compile Include="FileListProvider\IFileListProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -107,6 +106,16 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\FileBrowserServiceReference\FileServer1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FileBrowserServiceReference\service1.wsdl" />
+    <None Include="Service References\FileBrowserServiceReference\service2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FileBrowserServiceReference\service21.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Page Include="FileListView.xaml">
@@ -127,23 +136,10 @@
     <None Include="Service References\FileBrowserServiceReference\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\FileBrowserServiceReference\FileBrowserService1.wsdl" />
-    <None Include="Service References\FileBrowserServiceReference\item3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FileBrowserServiceReference\item31.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FileBrowserServiceReference\item32.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Service References\FileBrowserServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\FileBrowserServiceReference\item1.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

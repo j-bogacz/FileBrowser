@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace FileBrowser
 {
@@ -15,9 +9,9 @@ namespace FileBrowser
     {
         protected override void OnStartup(StartupEventArgs e)
         {
-            Bootstrapper bootstrapper = new Bootstrapper();
-            bootstrapper.Run();
+            var bootstrapper = new Bootstrapper();
 
+            bootstrapper.Run();
         }
     }
 }

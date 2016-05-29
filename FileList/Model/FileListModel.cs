@@ -1,21 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition;
 
 namespace FileBrowser.FileList
 {
-    [Export(typeof(IFileListModel))]
     public class FileListModel : IFileListModel
     {
         #region Private members
 
-        private IFileListProvider fileListProvider;
-
         private List<FileInfo> fileList;
+
+        private IFileListProvider fileListProvider;
 
         #endregion Private members
 
+        #region Constructor
+
+        public FileListModel(IFileListProvider fileListProvider)
+        {
+            this.fileList = new List<FileInfo>();
+
+            this.fileListProvider = fileListProvider;
+        }
+
+        #endregion Constructor
+
         #region Public members
+
+        #region IFileListModel implementation
 
         public event EventHandler FileListLoaded;
 
@@ -31,13 +42,7 @@ namespace FileBrowser.FileList
 
         public void Initialize()
         {
-            this.fileListProvider = new FileListProvider();
             this.fileListProvider.FileListChangedEvent += OnFileListChanged; ;
-
-            var commandLineArgs = Environment.GetCommandLineArgs();
-            FilePath = (commandLineArgs.Length == 2) ? commandLineArgs[1] : String.Empty;
-
-            this.fileList = new List<FileInfo>();
         }
 
         public void LoadFileList()
@@ -48,9 +53,11 @@ namespace FileBrowser.FileList
             }
         }
 
+        #endregion IFileListModel implementation
+
         #endregion Public members
 
-        #region Private members
+        #region Private methods
 
         private void OnFileListChanged(object sender, IEnumerable<FileInfo> e)
         {
@@ -65,6 +72,6 @@ namespace FileBrowser.FileList
             FileListLoaded?.Invoke(this, new EventArgs());
         }
 
-        #endregion Private members
+        #endregion Private methods
     }
 }

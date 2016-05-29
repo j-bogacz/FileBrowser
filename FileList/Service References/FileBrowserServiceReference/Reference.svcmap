@@ -19,14 +19,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:5000/FileServer/FileBrowserService/" Protocol="http" SourceId="1" />
+    <MetadataSource Address="net.tcp://localhost:5000/mex" Protocol="mex" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="87f27420-9461-451d-8cda-c0e43d61e154" SourceId="1" SourceUrl="http://localhost:5000/FileServer/FileBrowserService/?xsd=xsd1" />
-    <MetadataFile FileName="item1.disco" MetadataType="Disco" ID="391e495c-80f9-4e7f-8e23-abd8e701bd40" SourceId="1" SourceUrl="http://localhost:5000/FileServer/FileBrowserService/?disco" />
-    <MetadataFile FileName="item31.xsd" MetadataType="Schema" ID="5b2730dc-3d83-453b-be99-7e79c585a594" SourceId="1" SourceUrl="http://localhost:5000/FileServer/FileBrowserService/?xsd=xsd0" />
-    <MetadataFile FileName="item32.xsd" MetadataType="Schema" ID="e1be7b05-5805-4ec5-976d-d07bf3ee25cb" SourceId="1" SourceUrl="http://localhost:5000/FileServer/FileBrowserService/?xsd=xsd2" />
-    <MetadataFile FileName="FileBrowserService1.wsdl" MetadataType="Wsdl" ID="e3aaa29b-95de-4362-b11f-f24d67ff3ce5" SourceId="1" SourceUrl="http://localhost:5000/FileServer/FileBrowserService/?wsdl" />
+    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="16f5c150-0d54-4d69-b3a2-955988f07d7f" SourceId="1" SourceUrl="net.tcp://localhost:5000/mex" />
+    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="a68bc437-6be1-48a7-a4f9-d2a10727585c" SourceId="1" SourceUrl="net.tcp://localhost:5000/mex" />
+    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="74ba9e8e-54cf-4850-a045-9bf61cb9cabc" SourceId="1" SourceUrl="net.tcp://localhost:5000/mex" />
+    <MetadataFile FileName="FileServer1.xsd" MetadataType="Schema" ID="0ef7e037-585c-4f8b-a81c-5aab6de753d2" SourceId="1" SourceUrl="net.tcp://localhost:5000/mex" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

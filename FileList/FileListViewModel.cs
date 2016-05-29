@@ -1,20 +1,20 @@
-﻿using Microsoft.Practices.ServiceLocation;
+﻿using Prism.Commands;
 using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace FileBrowser.FileList
 {
     public class FileListViewModel : BindableBase
     {
         #region Private members
+
+        private string filePath;
+        private FileInfo selectedFile;
+
+        private string eventLog;
 
         IFileListModel model;
 
@@ -24,6 +24,8 @@ namespace FileBrowser.FileList
 
         public FileListViewModel(IFileListModel model)
         {
+            FileList = new ObservableCollection<FileInfo>();
+
             this.model = model;
         }
 
@@ -31,7 +33,6 @@ namespace FileBrowser.FileList
 
         #region Public members
 
-        private string filePath;
         public string FilePath
         {
             get { return this.filePath; }
@@ -40,7 +41,6 @@ namespace FileBrowser.FileList
 
         public ObservableCollection<FileInfo> FileList { get; set; }
 
-        private FileInfo selectedFile;
         public FileInfo SelectedFile
         {
             get { return this.selectedFile; }
@@ -51,7 +51,6 @@ namespace FileBrowser.FileList
         public DelegateCommand GoLevelUpCommand { get; set; }
         public DelegateCommand ListFolderCommand { get; set; }
 
-        private string eventLog;
         public string EventLog
         {
             get { return this.eventLog; }
@@ -60,20 +59,33 @@ namespace FileBrowser.FileList
 
         public void Initialize()
         {
-            FileList = new ObservableCollection<FileInfo>();
+            GoLevelUpCommand = new DelegateCommand(ExecuteGoLevelUp, () => SelectedFile != null && SelectedFile.IsParent);
+            ListFolderCommand = new DelegateCommand(ExecuteListFolder, () => SelectedFile != null && !SelectedFile.IsParent && SelectedFile.IsFolder);
+            LoadFileListCommand = new DelegateCommand(ExecuteLoadFileList, () => GoLevelUpCommand.CanExecute() || ListFolderCommand.CanExecute());
 
-            GoLevelUpCommand = new DelegateCommand(ExecuteGoLevelUp, (o) => SelectedFile != null && SelectedFile.IsParent);
-            ListFolderCommand = new DelegateCommand(ExecuteListFolder, (o) => SelectedFile != null && !SelectedFile.IsParent && SelectedFile.IsFolder);
-            LoadFileListCommand = new DelegateCommand(ExecuteLoadFileList, (o) => GoLevelUpCommand.CanExecute(null) || ListFolderCommand.CanExecute(null));
+            var commandLineArgs = Environment.GetCommandLineArgs();
+            FilePath = (commandLineArgs.Length == 2) ? commandLineArgs[1] : String.Empty;
 
-            this.model.Initialize();
             this.model.FileListLoaded += OnFileListLoaded;
-            this.model.LoadFileList();
+
+            try
+            {
+                LogEvent("Requesting initial 'LoadFileList': " + FilePath);
+
+                this.model.FilePath = FilePath;
+                this.model.LoadFileList();
+
+                LogEvent("Request for initial 'LoadFileList' queued: " + FilePath);
+            }
+            catch (Exception ex)
+            {
+                LogEvent("Exception requesting initial 'LoadFileList': " + ex.Message);
+            }
         }
 
         #endregion Public members
 
-        #region Private members
+        #region Private methods
 
         private void OnFileListLoaded(object sender, EventArgs e)
         {
@@ -92,51 +104,67 @@ namespace FileBrowser.FileList
             SelectedFile = FileList.FirstOrDefault();
         }
 
-        private void ExecuteLoadFileList(object obj)
+        private void ExecuteLoadFileList()
         {
             if (SelectedFile.IsParent)
             {
-                ExecuteGoLevelUp(null);
+                ExecuteGoLevelUp();
             }
             else
             {
-                ExecuteListFolder(null);
+                ExecuteListFolder();
             }
         }
 
-        private void ExecuteGoLevelUp(object obj)
+        private void ExecuteGoLevelUp()
         {
             var path = Path.GetDirectoryName(FilePath);
 
             if (path != null)
             {
-                LogEvent("Requesting 'GoLevelUp': " + path);
+                try
+                {
+                    LogEvent("Requesting 'GoLevelUp': " + path);
 
-                this.model.FilePath = path;
-                this.model.LoadFileList();
+                    this.model.FilePath = path;
+                    this.model.LoadFileList();
 
-                LogEvent("Request for 'GoLevelUp' queued: " + path);
+                    LogEvent("Request for 'GoLevelUp' queued: " + path);
+                }
+                catch (Exception ex)
+                {
+                    LogEvent("Exception requesting 'GoLevelUp': " + ex.Message);
+                }
             }
         }
 
-        private void ExecuteListFolder(object obj)
+        private void ExecuteListFolder()
         {
             var path = Path.Combine(FilePath, SelectedFile.Name);
 
-            LogEvent("Requesting 'ListFolder': " + path);
+            if (path != null)
+            {
+                try
+                {
+                    LogEvent("Requesting 'ListFolder': " + path);
 
-            this.model.FilePath = path;
-            this.model.LoadFileList();
+                    this.model.FilePath = path;
+                    this.model.LoadFileList();
 
-            LogEvent("Request for 'ListFolder' queued: " + path);
+                    LogEvent("Request for 'ListFolder' queued: " + path);
+                }
+                catch (Exception ex)
+                {
+                    LogEvent("Exception requesting 'ListFolder': " + ex.Message);
+                }
+            }
         }
-
 
         private void LogEvent(string message)
         {
             EventLog += String.Format("{0}: {1}\n", DateTime.Now.ToString("HH:mm:ss.fff"), message);
         }
 
-        #endregion Private members
+        #endregion Private methods
     }
 }

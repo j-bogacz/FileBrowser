@@ -4,7 +4,7 @@ using System.Windows;
 namespace UserInterface
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Shell.xaml
     /// </summary>
     [Export]
     public partial class Shell : Window

@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -13,7 +11,13 @@ namespace FileBrowser.FileList
 {
     public class FileListProvider : IFileListProvider, IFileBrowserServiceCallback
     {
+        #region Private members
+
         private FileBrowserServiceClient client;
+
+        #endregion Private members
+
+        #region Constructor
 
         public FileListProvider()
         {
@@ -21,19 +25,22 @@ namespace FileBrowser.FileList
             this.client = new FileBrowserServiceClient(instanceContext);
         }
 
+        #endregion Constructor
+
+        #region Public members
+
+        #region IFileListProvider implementation
+
         public event EventHandler<IEnumerable<FileInfo>> FileListChangedEvent;
 
         public void RequestFileList(string path)
         {
-            try
-            {
-                this.client.RequestFileList(path);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Exception occured when trying to request file list: " + ex.Message);
-            }
+            this.client.RequestFileList(path);
         }
+
+        #endregion IFileListProvider implementation
+
+        #region IFileBrowserServiceCallback implementation
 
         public void FileListChanged(FileBrowserServiceReference.FileInfo[] fileList)
         {
@@ -41,6 +48,12 @@ namespace FileBrowser.FileList
 
             FileListChangedEvent?.Invoke(this, newFileList);
         }
+
+        #endregion IFileBrowserServiceCallback implementation
+
+        #endregion Public members
+
+        #region Private methods
 
         private FileInfo GetFileInfo(FileBrowserServiceReference.FileInfo info)
         {
@@ -74,5 +87,7 @@ namespace FileBrowser.FileList
                 return imageSource;
             }
         }
+
+        #endregion Private methods
     }
 }
