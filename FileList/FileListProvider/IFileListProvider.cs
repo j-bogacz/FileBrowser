@@ -7,6 +7,10 @@ namespace FileBrowser.FileList
     {
         event EventHandler<IEnumerable<FileInfo>> FileListChangedEvent;
 
+        void Initialize();
+
+        void Uninitialize();
+
         void RequestFileList(string path);
     }
 }

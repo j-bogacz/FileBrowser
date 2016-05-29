@@ -13,6 +13,8 @@ namespace FileBrowser.FileList
 
         void Initialize();
 
+        void Uninitialize();
+
         void LoadFileList();
     }
 }

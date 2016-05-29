@@ -1,4 +1,6 @@
-﻿using Prism.Mef.Modularity;
+﻿using Microsoft.Practices.ServiceLocation;
+using Prism.Events;
+using Prism.Mef.Modularity;
 using Prism.Modularity;
 using Prism.Regions;
 using System.ComponentModel.Composition;
@@ -16,6 +18,7 @@ namespace FileBrowser.FileList
             try
             {
                 var fileListProvider = new FileListProvider();
+                fileListProvider.Initialize();
 
                 var model = new FileListModel(fileListProvider);
                 model.Initialize();
@@ -27,6 +30,12 @@ namespace FileBrowser.FileList
                 view.DataContext = viewModel;
 
                 RegionManager.AddToRegion("FileListRegion", view);
+                
+                ServiceLocator.Current.GetInstance<IEventAggregator>().GetEvent<PubSubEvent<bool>>().Subscribe((args) =>
+                {
+                    model.Uninitialize();
+                    fileListProvider.Uninitialize();
+                });
             }
             catch
             {

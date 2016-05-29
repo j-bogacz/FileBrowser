@@ -44,6 +44,12 @@ namespace FileBrowser.FileList
         {
             this.fileListProvider.FileListChangedEvent += OnFileListChanged; ;
         }
+        
+        public void Uninitialize()
+        {
+            this.fileListProvider.FileListChangedEvent -= OnFileListChanged;
+            this.fileListProvider = null;
+        }
 
         public void LoadFileList()
         {
@@ -59,10 +65,13 @@ namespace FileBrowser.FileList
 
         #region Private methods
 
-        private void OnFileListChanged(object sender, IEnumerable<FileInfo> e)
+        private void OnFileListChanged(object sender, IEnumerable<FileInfo> newFileList)
         {
             this.fileList.Clear();
-            this.fileList.AddRange(e);
+            if (newFileList != null)
+            {
+                this.fileList.AddRange(newFileList);
+            }
 
             OnFileListLoaded();
         }

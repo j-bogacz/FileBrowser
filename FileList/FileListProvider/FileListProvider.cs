@@ -17,21 +17,28 @@ namespace FileBrowser.FileList
 
         #endregion Private members
 
-        #region Constructor
-
-        public FileListProvider()
-        {
-            var instanceContext = new InstanceContext(this);
-            this.client = new FileBrowserServiceClient(instanceContext);
-        }
-
-        #endregion Constructor
-
         #region Public members
 
         #region IFileListProvider implementation
 
         public event EventHandler<IEnumerable<FileInfo>> FileListChangedEvent;
+
+        public void Initialize()
+        {
+            var instanceContext = new InstanceContext(this);
+            this.client = new FileBrowserServiceClient(instanceContext);
+        }
+
+        public void Uninitialize()
+        {
+            if (this.client.State == CommunicationState.Created ||
+                this.client.State == CommunicationState.Opening ||
+                this.client.State == CommunicationState.Opened)
+            {
+                this.client.Close();
+            }
+            this.client = null;
+        }
 
         public void RequestFileList(string path)
         {
@@ -44,7 +51,7 @@ namespace FileBrowser.FileList
 
         public void FileListChanged(FileBrowserServiceReference.FileInfo[] fileList)
         {
-            var newFileList = fileList.Select(info => GetFileInfo(info)).ToArray();
+            var newFileList = fileList?.Select(info => GetFileInfo(info)).ToArray();
 
             FileListChangedEvent?.Invoke(this, newFileList);
         }

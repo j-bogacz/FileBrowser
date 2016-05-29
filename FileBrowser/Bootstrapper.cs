@@ -1,6 +1,7 @@
 ﻿using FileBrowser.FileList;
 using FileBrowser.TxtViewer;
 using Microsoft.Practices.ServiceLocation;
+using Prism.Events;
 using Prism.Mef;
 using System.ComponentModel.Composition.Hosting;
 using System.Reflection;
@@ -30,7 +31,13 @@ namespace FileBrowser
             base.InitializeShell();
 
             Application.Current.MainWindow = (Window)Shell;
+            Application.Current.MainWindow.Closing += MainWindowClosing;
             Application.Current.MainWindow.Show();
+        }
+
+        private void MainWindowClosing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            ServiceLocator.Current.GetInstance<IEventAggregator>().GetEvent<PubSubEvent<bool>>().Publish(true);
         }
     }
 }

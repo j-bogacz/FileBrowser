@@ -68,6 +68,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateConverter.cs" />
     <Compile Include="FileListModule.cs" />
     <Compile Include="FileListView.xaml.cs">
       <DependentUpon>FileListView.xaml</DependentUpon>
