@@ -24,13 +24,17 @@
             <ListView.Resources>
                 <local:DateConverter x:Key="DateConverter" />
                 <DataTemplate x:Key="IconCellTemplate">
-                    <Image Source="{Binding Icon}" />
+                    <Image Width="16"
+                           Height="16"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Source="{Binding Icon}" />
                 </DataTemplate>
             </ListView.Resources>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="20" CellTemplate="{StaticResource IconCellTemplate}" />
-                    <GridViewColumn Width="270"
+                    <GridViewColumn Width="40" CellTemplate="{StaticResource IconCellTemplate}" />
+                    <GridViewColumn Width="250"
                                     DisplayMemberBinding="{Binding Name}"
                                     Header="Name" />
                     <GridViewColumn Width="130"
@@ -46,17 +50,21 @@
                                     Header="Modified" />
                 </GridView>
             </ListView.View>
+            <ListView.InputBindings>
+                <KeyBinding Key="Backspace" Command="{Binding GoLevelUpCommand}" />
+                <KeyBinding Key="Enter" Command="{Binding ListFolderCommand}" />
+            </ListView.InputBindings>
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="ListViewItem">
-                                <Border Name="Bd" Background="Transparent">
+                                <Border Name="Bd"
+                                        Background="Transparent"
+                                        Padding="2">
                                     <GridViewRowPresenter />
                                     <Border.InputBindings>
                                         <MouseBinding Command="{Binding DataContext.LoadFileListCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" Gesture="LeftDoubleClick" />
-                                        <KeyBinding Key="Backspace" Command="{Binding DataContext.GoLevelUpCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
-                                        <KeyBinding Key="Enter" Command="{Binding DataContext.ListFolderCommand, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" />
                                     </Border.InputBindings>
                                 </Border>
                                 <ControlTemplate.Triggers>
