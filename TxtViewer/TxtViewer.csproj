@@ -66,6 +66,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DropFileBehavior.cs" />
     <Compile Include="TxtViewerView.xaml.cs">
       <DependentUpon>TxtViewerView.xaml</DependentUpon>
     </Compile>

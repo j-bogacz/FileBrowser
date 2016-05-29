@@ -6,7 +6,8 @@
         xmlns:prism="http://www.codeplex.com/prism"
         Title="File Browser"
         Width="1100"
-        Height="600">
+        Height="600"
+        WindowStartupLocation="CenterScreen">
 
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
