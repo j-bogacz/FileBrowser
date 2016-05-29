@@ -101,23 +101,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\FileBrowserServiceReference\FileServer1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FileBrowserServiceReference\service1.wsdl" />
-    <None Include="Service References\FileBrowserServiceReference\service2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\FileBrowserServiceReference\service21.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Page Include="FileListView.xaml">
@@ -138,10 +127,23 @@
     <None Include="Service References\FileBrowserServiceReference\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Service References\FileBrowserServiceReference\FileBrowserService1.wsdl" />
+    <None Include="Service References\FileBrowserServiceReference\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FileBrowserServiceReference\item31.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FileBrowserServiceReference\item32.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\FileBrowserServiceReference\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FileBrowserServiceReference\item1.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

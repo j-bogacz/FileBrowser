@@ -25,7 +25,14 @@ namespace FileBrowser.FileList
 
         public void RequestFileList(string path)
         {
-            this.client.RequestFileList(path);
+            try
+            {
+                this.client.RequestFileList(path);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Exception occured when trying to request file list: " + ex.Message);
+            }
         }
 
         public void FileListChanged(FileBrowserServiceReference.FileInfo[] fileList)

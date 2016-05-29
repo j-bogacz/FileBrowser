@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="d1a5f134-1414-45fd-9bc7-fefe19974b7a" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b7596991-66e5-490d-a2ba-7966bc59918d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,13 +19,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:5000/FileServer/FileBrowserService/mex" Protocol="mex" SourceId="1" />
+    <MetadataSource Address="http://localhost:5000/FileServer/FileBrowserService/" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="service1.wsdl" MetadataType="Wsdl" ID="68a24010-214c-40a4-8cf5-862323ec67b6" SourceId="1" SourceUrl="http://localhost:5000/FileServer/FileBrowserService/mex" />
-    <MetadataFile FileName="service2.xsd" MetadataType="Schema" ID="abef5e74-3559-4471-9fb0-d369ee3c5071" SourceId="1" SourceUrl="http://localhost:5000/FileServer/FileBrowserService/mex" />
-    <MetadataFile FileName="service21.xsd" MetadataType="Schema" ID="b39411c4-e1fc-45c9-8eb8-7a55e4a4d0e6" SourceId="1" SourceUrl="http://localhost:5000/FileServer/FileBrowserService/mex" />
-    <MetadataFile FileName="FileServer1.xsd" MetadataType="Schema" ID="72143e1e-346f-4b20-96dd-472bbf7ad636" SourceId="1" SourceUrl="http://localhost:5000/FileServer/FileBrowserService/mex" />
+    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="87f27420-9461-451d-8cda-c0e43d61e154" SourceId="1" SourceUrl="http://localhost:5000/FileServer/FileBrowserService/?xsd=xsd1" />
+    <MetadataFile FileName="item1.disco" MetadataType="Disco" ID="391e495c-80f9-4e7f-8e23-abd8e701bd40" SourceId="1" SourceUrl="http://localhost:5000/FileServer/FileBrowserService/?disco" />
+    <MetadataFile FileName="item31.xsd" MetadataType="Schema" ID="5b2730dc-3d83-453b-be99-7e79c585a594" SourceId="1" SourceUrl="http://localhost:5000/FileServer/FileBrowserService/?xsd=xsd0" />
+    <MetadataFile FileName="item32.xsd" MetadataType="Schema" ID="e1be7b05-5805-4ec5-976d-d07bf3ee25cb" SourceId="1" SourceUrl="http://localhost:5000/FileServer/FileBrowserService/?xsd=xsd2" />
+    <MetadataFile FileName="FileBrowserService1.wsdl" MetadataType="Wsdl" ID="e3aaa29b-95de-4362-b11f-f24d67ff3ce5" SourceId="1" SourceUrl="http://localhost:5000/FileServer/FileBrowserService/?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
